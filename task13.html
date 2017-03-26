@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<label>请输入北京今天的空气质量：<input type="text"  id="aqi-input" ></label>
+	<button id="button" >确认填写</button>
+	<div>您输入的值是：<span id="aqi-display">尚未录入</span></div>
+	<script type="text/javascript">
+		
+//1 	(function aqi() {
+//   var airInput = document.getElementById('aqi-input');
+//   var airDisplay = document.getElementById('aqi-display');
+//   var button = document.getElementById('button');
+//   button.addEventListener('click',function aqi(){
+//       var xx = airInput.value
+//       if (xx == "") {
+//         xx = "请输入空气质量!";
+//       };
+//       airDisplay.innerText = xx;
+//     })
+// })();
+
+		//2
+
+			// (function(){
+			// 	var button = document.getElementById('button');
+			// 	var airInput = document.getElementById('aqi-input');
+			// 	var airDisplay = document.getElementById('aqi-display');
+			// 	button.onclick = function(){
+			// 		if (airInput.value) {
+			// 			airDisplay.innerText = airInput.value;
+			// 		}else{
+			// 			alert('please again !');
+			// 		}
+			// 	}
+			// })()
+	//	=========该题目是实现在输入框中输入的值在经过按钮来确认显示出来============//
+		// 1.首先想到用事件onclick & addEventListener 来实现
+		// 2.定义一个函数来实现输入的内容显示出来
+		// 3.判断输入的内容 然后赋值给	显示的标签上
+		// 4.获取输入框的值 var.value
+		// 5.获取span标签的内容 var.innerHTML
+		// 6.自执行函数(function () {}) ()
+		// 7.点击事件 button.onclick = function(){}
+		// 8.添加事件 button.addEventListener(event , function , true/false)
+		// 	event表示事件 如 点击click mousedown等鼠标事件 可以了解下键盘，对象 动画等事件
+(function() {
+  /*
+  在注释下方写下代码
+  给按钮button绑定一个点击事件
+  在事件处理函数中
+  获取aqi-input输入的值，并显示在aqi-display中
+  */
+  var button = document.getElementById('button');
+  var input = document.getElementById('aqi-input');
+  var span = document.getElementById('aqi-display');
+  input.onkeypress = function(e){
+    if (e.keyCode == 13){
+      button.click(); // 回车触发click事件
+    }
+  }
+  button.onclick = function(e){
+    var inputValue = +input.value;
+    span.innerHTML = isNaN(inputValue) || inputValue <= 0 ? "请输入正数" : inputValue;
+  };
+       /*
+        * Test Cases
+        * '' -> '请输入正数'
+        * '0' -> 0
+        * '2' -> 2
+        * '.2' -> 0.2
+        * '0xA' -> 10
+        * 'X' -> '请输入正数'
+        * 'X0' -> '请输入正数'
+        * '0X' -> '请输入正数'
+        * ‘-2’ -> '请输入正数'
+        *
+        * 参考自 http://ife.baidu.com/review/detail?workId=8034
+        * */
+})();
+	</script>
+</body>
+</html>
